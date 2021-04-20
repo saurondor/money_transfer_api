@@ -42,6 +42,15 @@ class ClabeAccount < ApplicationRecord
   CLABE_WEIGHTS = [3,7,1,3,7,1,3,7,1,3,7,1,3,7,1,3,7]
   CLABE_LENGTH = 17
 
+  CLABE_BANK_LENGTH = 3
+  ##
+  # Returns the Clabe Account (corresponding bank) associated with the first three digits of the clabe
+  def self.get_clabe_account(clabe)
+    return unless sub_clabe.size() == CLABE_LENGTH
+    abm_code = clabe=[0..CLABE_BANK_LENGTH-1]
+    ClabeAccount.where(:abm_code => abm_code).first
+  end
+
   ##
   # Calculates the checksum digit for the 17 characters
   def self.get_clabe_checksum(sub_clabe)

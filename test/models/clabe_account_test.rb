@@ -21,4 +21,10 @@ class ClabeAccountTest < ActiveSupport::TestCase
     assert_equal(false, ClabeAccount.validate_clabe(bad_clabe1))
     assert_equal(false, ClabeAccount.validate_clabe(bad_clabe2))
   end
+
+  test "get clabe account" do
+    clabe1 = "002115016003269411"
+    clabe_account = ClabeAccount.get_clabe_account(clabe1)
+    puts "CLABE #{clabe_account}"
+  end
 end
