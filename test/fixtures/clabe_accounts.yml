@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  abm_code: 002
+  short_name: BANAMEX
+  corporate_name: Banco Nacional de México, S.A., Institución de Banca Múltiple, Grupo Financiero Banamex
+
+two:
+  abm_code: 006
+  short_name: BANCOMEXT
+  corporate_name: Banco Nacional de Comercio Exterior, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo
