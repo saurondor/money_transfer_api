@@ -9,7 +9,6 @@ class ClabeAccountTest < ActiveSupport::TestCase
     bad_clabe2 = "032180000118359718"
     sub_clabe1 = "00211501600326941"
     sub_clabe2 = "03218000011835971"
-    account.validate_clabe(clabe2)
     digit = ClabeAccount.get_clabe_checksum(sub_clabe2)
     assert_equal(9, digit)
     digit = ClabeAccount.get_clabe_checksum(sub_clabe1)
