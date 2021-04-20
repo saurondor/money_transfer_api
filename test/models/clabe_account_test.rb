@@ -25,6 +25,6 @@ class ClabeAccountTest < ActiveSupport::TestCase
   test "get clabe account" do
     clabe1 = "002115016003269411"
     clabe_account = ClabeAccount.get_clabe_account(clabe1)
-    puts "CLABE #{clabe_account}"
+    assert_not_nil(clabe_account)
   end
 end
