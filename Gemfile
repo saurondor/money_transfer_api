@@ -7,6 +7,9 @@ ruby '2.7.0'
 gem 'devise'
 gem 'devise-jwt'
 
+# RACK for CORS
+gem 'rack-cors'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.6'
 # Use mysql as the database for Active Record
