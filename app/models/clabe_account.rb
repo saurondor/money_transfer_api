@@ -44,7 +44,7 @@ class ClabeAccount < ApplicationRecord
 
   ##
   # Calculates the checksum digit for the 17 characters
-  def get_clabe_checksum(sub_clabe)
+  def self.get_clabe_checksum(sub_clabe)
     return unless sub_clabe.size() == CLABE_LENGTH
     weight = 0;
     CLABE_WEIGHTS.each_with_index do |weight_factor, index|
@@ -55,7 +55,7 @@ class ClabeAccount < ApplicationRecord
 
   ##
   # Verifies an 18 character CLABE is valid
-  def validate_clabe(clabe)
+  def self.validate_clabe(clabe)
     return unless clabe.size() == CLABE_LENGTH+1
     validation_digit = clabe[17].to_i
     return validation_digit == get_clabe_checksum(clabe[0..16])
