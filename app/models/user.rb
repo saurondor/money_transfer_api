@@ -10,4 +10,11 @@ class User < ApplicationRecord
   # alternate blacklist JWT Deny mechanism
   #:jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
+  ##
+  # USER should have a set of accounts
+  # ? maybe polimorphic
+  # - at least one checking account type
+  # - add operation log to accounts
+  #
+  has_many :checking_accounts
 end

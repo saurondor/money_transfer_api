@@ -10,7 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_20_220918) do
+ActiveRecord::Schema.define(version: 2021_04_20_233726) do
+
+  create_table "account_operations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "checking_account_id", null: false
+    t.string "operation_type", limit: 10, null: false
+    t.string "auth_code", limit: 6
+    t.float "amount", null: false
+    t.string "clabe"
+    t.string "description"
+    t.string "operation_status", limit: 10, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["checking_account_id"], name: "index_account_operations_on_checking_account_id"
+  end
+
+  create_table "checking_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "clabe", limit: 18, null: false
+    t.integer "status", default: 1
+    t.float "balance", default: 0.0
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_checking_accounts_on_user_id"
+  end
 
   create_table "clabe_accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "abm_code"
@@ -35,4 +58,6 @@ ActiveRecord::Schema.define(version: 2021_04_20_220918) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "account_operations", "checking_accounts"
+  add_foreign_key "checking_accounts", "users"
 end
