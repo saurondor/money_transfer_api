@@ -54,6 +54,5 @@ class User < ApplicationRecord
     account = self.checking_accounts.where(:clabe => account_number).first
     return unless !account.nil? ## probably handle some exception here
     account.do_deposit(amount)
-
   end
 end
