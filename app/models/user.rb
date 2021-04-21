@@ -35,6 +35,7 @@ class User < ApplicationRecord
   ##
   # Transfers money out of the account
   def do_withdraw(account_number, amount)
+    raise InvalidAmountException.new "Amount must be positive" unless amount > 0
     account = self.checking_accounts.where(:clabe => account_number).first
     return unless !account.nil? ## probably handle some exception here
     account.do_withdraw(amount)
@@ -43,6 +44,7 @@ class User < ApplicationRecord
   ##
   # Deposits a certain amount to the account
   def do_deposit(account_number, amount)
+    raise InvalidAmountException.new "Amount must be positive" unless amount > 0
     account = self.checking_accounts.where(:clabe => account_number).first
     return unless !account.nil? ## probably handle some exception here
     account.do_deposit(amount)

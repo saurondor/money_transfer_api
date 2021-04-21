@@ -12,8 +12,13 @@ class CheckingAccount < ApplicationRecord
                                        :operation_status => AccountOperation::STATUS_INIT, :description => description,
                                        :clabe => clabe)
       operation.save
-      self.balance -= amount
-      self.save
+      account = CheckingAccount.find(self.id)
+      if account.balance < amount
+        # raise exception
+        raise InvalidBalanceException.new "Current balance is below withdraw amount"
+      end
+      account.balance -= amount
+      account.save
       operation.operation_status = AccountOperation::STATUS_COMPLETE
       operation.auth_code = auth_code
       operation.save
@@ -30,8 +35,9 @@ class CheckingAccount < ApplicationRecord
                                        :operation_status => AccountOperation::STATUS_INIT, :description => description,
                                        :clabe => clabe)
       operation.save
-      self.balance += amount
-      self.save
+      account = CheckingAccount.find(self.id)
+      account.balance += amount
+      account.save
       operation.operation_status = AccountOperation::STATUS_COMPLETE
       operation.auth_code = auth_code
       operation.save

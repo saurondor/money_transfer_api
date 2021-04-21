@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       post 'money_transfers' => "money_transfer#create"
       patch 'money_transfers/:id' => "money_transfer#update"
       delete 'money_transfers/:id' => "money_transfer#destroy"
+
+
+      post 'transfer' => "money_transfer#transfer"
+      post 'add_funds' => "money_transfer#add_funds"
     end
   end
   namespace :api do

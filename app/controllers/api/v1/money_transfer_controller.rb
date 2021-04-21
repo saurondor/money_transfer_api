@@ -8,7 +8,6 @@ class Api::V1::MoneyTransferController < ApplicationController
   end
 
   def index
-    puts "USER #{current_user.as_json}"
   end
 
   def show
@@ -41,8 +40,19 @@ class Api::V1::MoneyTransferController < ApplicationController
   # CLABE
   # account number
   # BIN
-  def deposit
+  def add_funds
+    email = params['user']['email']
+    clabe = params['user']['clabe']
+    amount = params['user']['amount'].to_f
+    user = User.where(:email => email).first
+    raise InvalidUserAccountException.new "Specified user does not exist" unless !user.nil?
+    begin
+      user.do_deposit(clabe, amount)
+    rescue InvalidAmountException => e
+    rescue InvalidBalanceException => e
+    rescue InvalidClabeException => e
 
+    end
   end
 
   def create
