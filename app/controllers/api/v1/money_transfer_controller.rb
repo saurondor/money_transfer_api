@@ -32,7 +32,7 @@ class Api::V1::MoneyTransferController < ApplicationController
 
   ##
   # Creates a deposit
-  # Inboud operation of funds to checking account
+  # Inbound operation of funds to checking account
   # generates deposit to
   # account number
   # clabe

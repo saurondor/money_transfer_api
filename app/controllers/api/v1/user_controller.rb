@@ -17,11 +17,17 @@ class Api::V1::UserController < ApplicationController
   # Should allow an admin user to create a holder user account
   # Returns 422 unprocessable entity if user was not created
   def create
+    clabe = params['user']['clabe']
+    email = params['user']['email']
     begin
-      User.create!(
-          email: params['user']['email'],
+      user = User.create!(
+          email: email,
           role: User::ROLE_HOLDER,
           password: params['user']['password']
+      )
+      checking_account = CheckingAccount.create(
+                                            user: user,
+                                            clabe: clabe
       )
       render body: nil, status: :created
     rescue => e
