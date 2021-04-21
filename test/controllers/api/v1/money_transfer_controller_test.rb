@@ -5,6 +5,11 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
 
   include Devise::Test::IntegrationHelpers
 
+
+  ##
+  # ADMIN user can add funds to HOLDER account
+  # Should return 204 created status
+  # Should return operation auth code
   test "should add funds" do
     user = users(:one)
     sign_in user
@@ -21,7 +26,7 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
     post '/api/v1/add_funds', as: :json, params: payload, headers: auth_headers
     op_result = response.parsed_body
     puts "::#{op_result}"
-    assert_equal 200, status
+    assert_equal 204, status
   end
 
 

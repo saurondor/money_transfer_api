@@ -34,7 +34,8 @@ class Api::V1::MoneyTransferController < ApplicationController
     destination_bank = params['operation']['destination_bank']
     amount = params['operation']['amount'].to_f
     begin
-      current_user.do_withdraw(source_account, amount, destination_account, destination_bank)
+      auth_code = current_user.do_withdraw(source_account, amount, destination_account, destination_bank)
+      render json: {"auth_code" => auth_code}, :status => :created
     rescue Api::V1::InvalidAmountException => e
     rescue Api::V1::InvalidBalanceException => e
     rescue Api::V1::InvalidClabeException => e
@@ -67,7 +68,8 @@ class Api::V1::MoneyTransferController < ApplicationController
     puts "Adding funds #{email} -> #{user.as_json}"
     #raise InvalidUserAccountException.new "Specified user does not exist" unless !user.nil?
     begin
-      user.do_deposit(clabe, amount)
+      auth_code = user.do_deposit(clabe, amount)
+      render json: {"auth_code" => auth_code}, :status => :created
     rescue Api::V1::InvalidAmountException => e
     rescue Api::V1::InvalidBalanceException => e
     rescue Api::V1::InvalidClabeException => e
