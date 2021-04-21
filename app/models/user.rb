@@ -20,8 +20,10 @@ class User < ApplicationRecord
 
   ##
   # Transfers money out of the account
-  def do_transfer()
-
+  def do_withdraw(account_number, amount)
+    account = self.checking_accounts.where(:clabe => account_number).first
+    return unless !account.nil? ## probably handle some exception here
+    account.do_withdraw(amount)
   end
 
   ##
