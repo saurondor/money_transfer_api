@@ -66,7 +66,12 @@ class Api::V1::MoneyTransferController < ApplicationController
     clabe = params['user']['clabe']
     amount = params['user']['amount'].to_f
     user = User.where(:email => email).first
-    puts "Adding funds #{email} -> #{user.as_json}"
+    #puts "Adding funds #{email} -> #{user.as_json}"
+
+    if user.nil?
+      render json: {"message" => "No such user"}, :status => :bad_request
+      return
+    end
     #raise InvalidUserAccountException.new "Specified user does not exist" unless !user.nil?
     begin
       auth_code = user.do_deposit(clabe, amount)

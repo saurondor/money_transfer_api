@@ -25,11 +25,34 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
     }
     post '/api/v1/add_funds', as: :json, params: payload, headers: auth_headers
     op_result = response.parsed_body
-    puts "::#{op_result}"
+    #puts "::#{op_result}"
     assert_equal 201, status
     assert_not_nil op_result['auth_code']
   end
 
+  ##
+  # ADMIN user can't add funds to invalid HOLDER account
+  # Should return 400 bad request status
+  test "should not add funds to invalid HOLDER account" do
+    user = users(:one)
+    sign_in user
+    headers = {'Accept' => 'application/json', 'Content-Type' => 'application/json'}
+    # This will add a valid token for `user` in the `Authorization` header
+    auth_headers = Devise::JWT::TestHelpers.auth_headers(headers, user)
+    payload = {
+        "user": {
+            "email": "gtasist@gmail.com",
+            "amount": "1500.00",
+            "clabe": "002115016003269411"
+        }
+    }
+    post '/api/v1/add_funds', as: :json, params: payload, headers: auth_headers
+    op_result = response.parsed_body
+    #puts "::#{op_result}"
+    assert_equal 400, status
+    assert_not_nil op_result['message']
+    assert_equal "No such user", op_result['message']
+  end
 
   test "should transfer funds" do
     user = users(:two)
