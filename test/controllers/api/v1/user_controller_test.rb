@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class Api::V1::UserControllerTest < ActionDispatch::IntegrationTest
+
+  # TODO: test create user with admin account?
+
   # test "should get index" do
   #   get api_v1_user_index_url
   #   assert_response :success
