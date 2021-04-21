@@ -4,8 +4,10 @@ class User < ApplicationRecord
   # STOCK AUTH SETTINGS
   # devise :database_authenticatable, :registerable,
   #       :recoverable, :rememberable, :validatable
+  #
+  include Devise::JWT::RevocationStrategies::JTIMatcher
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
   # alternate blacklist JWT Deny mechanism
   #:jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
