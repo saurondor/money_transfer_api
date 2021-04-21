@@ -9,3 +9,8 @@ two:
   abm_code: '006'
   short_name: BANCOMEXT
   corporate_name: Banco Nacional de Comercio Exterior, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo
+
+three:
+  abm_code: '014'
+  short_name: SANTANDER
+  corporate_name: Banco Santander (México), S.A., Institución de Banca Múltiple, Grupo Financiero Santander

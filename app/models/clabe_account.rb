@@ -48,7 +48,10 @@ class ClabeAccount < ApplicationRecord
   def self.get_clabe_account(clabe)
     return unless clabe.size() ==  CLABE_LENGTH+1
     abm_code = clabe[0..CLABE_BANK_LENGTH-1]
-    ClabeAccount.where(:abm_code => abm_code).first
+    puts "GET by abm code #{abm_code}"
+    clabe_account = ClabeAccount.where(:abm_code => abm_code).first
+    puts "CLABE #{clabe_account.as_json}"
+    clabe_account
   end
 
   ##

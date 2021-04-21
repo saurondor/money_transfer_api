@@ -39,7 +39,7 @@ class User < ApplicationRecord
     raise Api::V1::InvalidClabeException.new "Invalid CLABE for source account" unless ClabeAccount.validate_clabe(source_account)
     raise Api::V1::InvalidClabeException.new "Invalid CLABE for destination account" unless ClabeAccount.validate_clabe(destination_account)
     clabe_account = ClabeAccount.get_clabe_account(destination_account)
-    puts "#{clabe_account.as_json} vs #{destination_bank}"
+    puts "#{destination_account} CLABE ACCOUNT -> #{clabe_account.as_json} vs #{destination_bank}"
     raise Api::V1::InvalidClabeException.new "Invalid ABM code or bank short name for CLABE destination account " if clabe_account.nil? or clabe_account.short_name != destination_bank
 
     account = self.checking_accounts.where(:clabe => source_account).first
