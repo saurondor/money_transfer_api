@@ -5,13 +5,16 @@ class ClabeAccount < ApplicationRecord
   #
   # CHECKSUM CALCULATION source (https://en.wikipedia.org/wiki/CLABE#Control_digit)
   # City code
-  # This three-digit code refers to the city ("Plaza") where the checking account is located is interna. A bank can have several Branches in a city, therefore the number of the Branch is included in the next, eleven digit section for the checking account number.
+  # This three-digit code refers to the city ("Plaza") where the checking account is located is interna.
+  # A bank can have several Branches in a city, therefore the number of the Branch is included in the next,
+  # eleven digit section for the checking account number.
   #
   # Account number
   # The account number in the financial institution, padded on the left with zeroes to a width of 11 digits.
   #
   # Control digit
-  # The control digit is calculated as the modulus 10 of 10 minus the modulus 10 of the sum of the modulus 10 of the product of the first 17 digits by its weight factor.[3][4]
+  # The control digit is calculated as the modulus 10 of 10 minus the modulus 10 of the sum of the modulus 10
+  # of the product of the first 17 digits by its weight factor.[3][4]
   #
   # The first 17 digits of the CLABE are, as mentioned above, the Bank Code, the Branch Office Code and the Account Number.
   #
@@ -24,7 +27,8 @@ class ClabeAccount < ApplicationRecord
   #
   # The method is:
   #
-  # For every digit, multiply it by its weight factor and take their modulus 10 (modulus is the Remainder of the integer division. The modulus X of a baseX number is its rightmost digit).
+  # For every digit, multiply it by its weight factor and take their modulus 10
+  # (modulus is the Remainder of the integer division. The modulus X of a baseX number is its rightmost digit).
   # Sum all of the calculated products, and take modulus 10 again.
   # Subtract the sum to 10, take modulus 10, and you have the resulting control digit.
   # So, as an example:
@@ -39,28 +43,29 @@ class ClabeAccount < ApplicationRecord
   # 10 - sum, modulus 10	9 (control digit)
   # And so, the complete CLABE is: 032180000118359719
 
-  CLABE_WEIGHTS = [3,7,1,3,7,1,3,7,1,3,7,1,3,7,1,3,7]
+  CLABE_WEIGHTS = [3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7, 1, 3, 7]
   CLABE_LENGTH = 17
 
   CLABE_BANK_LENGTH = 3
   ##
   # Returns the Clabe Account (corresponding bank) associated with the first three digits of the clabe
   def self.get_clabe_account(clabe)
-    return unless clabe.size() ==  CLABE_LENGTH+1
-    abm_code = clabe[0..CLABE_BANK_LENGTH-1]
-    #puts "GET by abm code #{abm_code}"
-    clabe_account = ClabeAccount.where(:abm_code => abm_code).first
-    #puts "CLABE #{clabe_account.as_json}"
+    return unless clabe.size == CLABE_LENGTH + 1
+
+    abm_code = clabe[0..CLABE_BANK_LENGTH - 1]
+    # puts "GET by abm code #{abm_code}"
+    clabe_account = ClabeAccount.where(abm_code: abm_code).first
+    # puts "CLABE #{clabe_account.as_json}"
     clabe_account
   end
 
   ##
   # Calculates the checksum digit for the 17 characters
   def self.get_clabe_checksum(sub_clabe)
-    return unless sub_clabe.size() == CLABE_LENGTH
-    weight = 0;
+    return unless sub_clabe.size == CLABE_LENGTH
+    weight = 0
     CLABE_WEIGHTS.each_with_index do |weight_factor, index|
-      weight += sub_clabe[index].to_i*weight_factor % 10
+      weight += sub_clabe[index].to_i * weight_factor % 10
     end
     (10 - weight) % 10
   end
@@ -68,8 +73,9 @@ class ClabeAccount < ApplicationRecord
   ##
   # Verifies an 18 character CLABE is valid
   def self.validate_clabe(clabe)
-    return unless clabe.size() == CLABE_LENGTH+1
+    return unless clabe.size == CLABE_LENGTH + 1
+
     validation_digit = clabe[17].to_i
-    return validation_digit == get_clabe_checksum(clabe[0..16])
+    validation_digit == get_clabe_checksum(clabe[0..16])
   end
 end

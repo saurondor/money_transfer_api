@@ -26,13 +26,13 @@ class Api::V1::UserController < Api::V1::BaseApiController
           password: params['user']['password']
       )
       checking_account = CheckingAccount.create(
-                                            user: user,
-                                            clabe: clabe
+          user: user,
+          clabe: clabe
       )
       render body: nil, status: :created
     rescue => e
       puts "#{e.message}"
-      render json: {"message" => e.message}, status: :unprocessable_entity
+      render json: {:message => e.message}, status: :unprocessable_entity
     end
   end
 

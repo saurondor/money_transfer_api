@@ -34,13 +34,13 @@ class Api::V1::MoneyTransferController < Api::V1::BaseApiController
     amount = params['operation']['amount'].to_f
     begin
       auth_code = current_user.do_withdraw(source_account, amount, destination_account, destination_bank)
-      render json: {"auth_code" => auth_code}, :status => :created
+      render json: { :auth_code => auth_code }, :status => :created
     rescue Api::V1::InvalidAmountException => e
-      render json: {"message" => e.message}, :status => :bad_request
+      render json: { :message => e.message }, :status => :bad_request
     rescue Api::V1::InvalidBalanceException => e
-          render json: {"message" => e.message}, :status => :bad_request
+          render json: { :message => e.message }, :status => :bad_request
     rescue Api::V1::InvalidClabeException => e
-      render json: {"message" => e.message}, :status => :bad_request
+      render json: { :message => e.message }, :status => :bad_request
     end
   end
 

@@ -6,10 +6,10 @@ class CheckingAccount < ApplicationRecord
     operation = nil
     self.transaction do
       #description = "Stub description"
-      operation = AccountOperation.new(:checking_account => self, :amount => amount,
-                                       :operation_type => AccountOperation::OP_WITHDRAW,
-                                       :operation_status => AccountOperation::STATUS_INIT, :description => description,
-                                       :clabe => destination_account)
+      operation = AccountOperation.new(checking_account: self, amount: amount,
+                                       operation_type: AccountOperation::OP_WITHDRAW,
+                                       operation_status: AccountOperation::STATUS_INIT, description: description,
+                                       clabe: destination_account)
       operation.save
       account = CheckingAccount.find(self.id)
       if account.balance < amount
@@ -33,11 +33,11 @@ class CheckingAccount < ApplicationRecord
     self.transaction do
       #description = "Stub description"
       #clabe = "aaaaaaaaa"
-      operation = AccountOperation.new(:checking_account => self, :amount => amount,
-                                       :operation_type => AccountOperation::OP_DEPOSIT,
-                                       :operation_status => AccountOperation::STATUS_INIT, :description => description)
+      operation = AccountOperation.new(checking_account: self, amount: amount,
+                                       operation_type: AccountOperation::OP_DEPOSIT,
+                                       operation_status: AccountOperation::STATUS_INIT, description: description)
       operation.save
-      account = CheckingAccount.find(self.id)
+      account = CheckingAccount.find(id)
       account.balance += amount
       account.save
       operation.operation_status = AccountOperation::STATUS_COMPLETE
