@@ -2,6 +2,12 @@ class Api::V1::MoneyTransferController < ApplicationController
   #around_action :log
   before_action :authenticate_user!
 
+  before_filter :require_admin, :except => []
+
+  def require_admin
+
+  end
+
   def log
     puts "IN LOG #{request.headers}"
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_20_233726) do
+ActiveRecord::Schema.define(version: 2021_04_21_041350) do
 
   create_table "account_operations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "checking_account_id", null: false
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_04_20_233726) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "jti"
+    t.string "role", limit: 10, default: "holder", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

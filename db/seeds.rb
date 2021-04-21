@@ -9,6 +9,12 @@
 
 #MXN clabe accounts from https://es.wikipedia.org/wiki/CLABE
 
+User.create(
+    email: "gerardo@gmail.com",
+    role: User::ROLE_ADMIN,
+    password: "12345678"
+)
+
 ClabeAccount.create(abm_code: '002', short_name:'BANAMEX', corporate_name:'Banco Nacional de México, S.A., Institución de Banca Múltiple, Grupo Financiero Banamex')
 ClabeAccount.create(abm_code: '006', short_name:'BANCOMEXT', corporate_name:'Banco Nacional de Comercio Exterior, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo')
 ClabeAccount.create(abm_code: '009', short_name:'BANOBRAS', corporate_name:'Banco Nacional de Obras y Servicios Públicos, Sociedad Nacional de Crédito, Institución de Banca de Desarrollo')

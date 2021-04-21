@@ -18,7 +18,19 @@ class User < ApplicationRecord
   # - at least one checking account type
   # - add operation log to accounts
   #
+  #
+
+  validates :email, presence: true
+  validates :role, presence: true
+
   has_many :checking_accounts
+
+  ROLE_ADMIN = "admin"
+  ROLE_HOLDER = "holder"
+
+  def is_admin?
+    self.role == ROLE_ADMIN
+  end
 
   ##
   # Transfers money out of the account
