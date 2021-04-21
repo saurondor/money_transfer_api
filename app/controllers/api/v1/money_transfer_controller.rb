@@ -1,10 +1,10 @@
 class Api::V1::MoneyTransferController < ApplicationController
   before_action :authenticate_user!
 
-  before_filter :require_admin, :except => []
+  before_action :require_admin, except: [:transfer]
 
   def require_admin
-
+    render json: {"message" => "User is not ADMIN"}, status: :unauthorized unless current_user.is_admin?
   end
 
   def index
