@@ -5,7 +5,6 @@ class CheckingAccount < ApplicationRecord
   def do_withdraw(amount, destination_account)
     operation = nil
     self.transaction do
-      auth_code = SecureRandom.hex(3)
       description = "Stub description"
       operation = AccountOperation.new(:checking_account => self, :amount => amount,
                                        :operation_type => AccountOperation::OP_WITHDRAW,
@@ -23,7 +22,7 @@ class CheckingAccount < ApplicationRecord
       account.balance -= amount
       account.save
       operation.operation_status = AccountOperation::STATUS_COMPLETE
-      operation.auth_code = auth_code
+      operation.auth_code = generate_auth_code
       operation.save
     end
     operation.auth_code
@@ -32,7 +31,6 @@ class CheckingAccount < ApplicationRecord
   def do_deposit(amount)
     operation = nil
     self.transaction do
-      auth_code = SecureRandom.hex(3)
       description = "Stub description"
       clabe = "aaaaaaaaa"
       operation = AccountOperation.new(:checking_account => self, :amount => amount,
@@ -44,9 +42,15 @@ class CheckingAccount < ApplicationRecord
       account.balance += amount
       account.save
       operation.operation_status = AccountOperation::STATUS_COMPLETE
-      operation.auth_code = auth_code
+      operation.auth_code = generate_auth_code
       operation.save
     end
     operation.auth_code
+  end
+
+  private
+
+  def generate_auth_code
+    SecureRandom.hex(3).upcase
   end
 end
