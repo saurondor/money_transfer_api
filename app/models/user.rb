@@ -28,8 +28,8 @@ class User < ApplicationRecord
   ROLE_ADMIN = "admin"
   ROLE_HOLDER = "holder"
 
-  def is_admin?
-    self.role == ROLE_ADMIN
+  def admin?
+    role == ROLE_ADMIN
   end
 
   ##

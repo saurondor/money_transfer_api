@@ -1,12 +1,11 @@
-require 'exceptions'
-class Api::V1::MoneyTransferController < ApplicationController
-  before_action :authenticate_user!
+class Api::V1::MoneyTransferController < Api::V1::BaseApiController
+#  before_action :authenticate_user!
 
   before_action :require_admin, except: [:transfer]
 
-  def require_admin
-    render json: {"message" => "User is not ADMIN"}, status: :unauthorized unless current_user.is_admin?
-  end
+  # def require_admin
+  #   render json: {"message" => "User is not ADMIN"}, status: :unauthorized unless current_user.admin?
+  # end
 
   def index
   end

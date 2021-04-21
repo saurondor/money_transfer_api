@@ -1,11 +1,11 @@
-class Api::V1::UserController < ApplicationController
-  before_action :authenticate_user!
+class Api::V1::UserController < Api::V1::BaseApiController
+#  before_action :authenticate_user!
 
   before_action :require_admin, :except => []
 
-  def require_admin
-    render json: {"message" => "User is not ADMIN"}, status: :unauthorized unless current_user.is_admin?
-  end
+  # def require_admin
+  #   render json: {"message" => "User is not ADMIN"}, status: :unauthorized unless current_user.admin?
+  # end
 
   def index
   end
