@@ -31,3 +31,5 @@
 
 # Lets ignore IDE settings
 /.idea
+
+/doc
