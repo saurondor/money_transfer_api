@@ -22,8 +22,27 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
     op_result = response.parsed_body
     puts "::#{op_result}"
     assert_equal 200, status
+  end
 
 
+  test "should transfer funds" do
+    user = users(:two)
+    sign_in user
+    headers = {'Accept' => 'application/json', 'Content-Type' => 'application/json'}
+    # This will add a valid token for `user` in the `Authorization` header
+    auth_headers = Devise::JWT::TestHelpers.auth_headers(headers, user)
+    payload = {
+        "operation": {
+            "amount": "1500.00",
+            "source_account": "002115016003269411",
+            "destination_account": "014190016333269411",
+            "destination_bank": "SANTANDER"
+        }
+    }
+    post '/api/v1/transfer', as: :json, params: payload, headers: auth_headers
+    op_result = response.parsed_body
+    puts "::#{op_result}"
+    assert_equal 200, status
   end
 
   # test "should get index" do

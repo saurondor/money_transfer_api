@@ -7,4 +7,5 @@ class AccountOperation < ApplicationRecord
 
   STATUS_INIT = "init"
   STATUS_COMPLETE = "complete"
+  STATUS_INSUFFICIENT_FUNDS = "no_funds"
 end

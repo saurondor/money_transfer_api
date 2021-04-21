@@ -5,7 +5,6 @@ class Api::V1::MoneyTransferController < ApplicationController
   before_action :require_admin, except: [:transfer]
 
   def require_admin
-    puts "USER IS #{current_user.role}"
     render json: {"message" => "User is not ADMIN"}, status: :unauthorized unless current_user.is_admin?
   end
 
@@ -16,25 +15,38 @@ class Api::V1::MoneyTransferController < ApplicationController
   end
 
   ##
-  # Creates a CLABE transfer
-  # Outbound operation of funds from checking account
-  # parameters
-  # USER - from login
-  # amount
-  # clabe account
+  #  Transfers money from user checking account to third party account identified by CLABE
   #
-  # ?? return values
-  # OK - Created
-  # invalid operation - invalid CLABE
+  #  **POST** /api/v1/transfer
+  #
+  #
+  # Outbound operation of funds from checking account
+  #
+  # Transfers funds to account identified by CLABE account number
+  #
+  # @param [String] clabe, CLABE account identifier
+  #
+  # @param [Float] amount, amount to add to account
   #
   def transfer
+    source_account = params['operation']['source_account']
+    destination_account = params['operation']['destination_account']
+    destination_bank = params['operation']['destination_bank']
+    amount = params['operation']['amount'].to_f
+    begin
+      current_user.do_withdraw(source_account, amount, destination_account, destination_bank)
+    rescue Api::V1::InvalidAmountException => e
+    rescue Api::V1::InvalidBalanceException => e
+    rescue Api::V1::InvalidClabeException => e
+
+    end
 
   end
 
   ##
   #  Creates a deposit to a user checking account
   #
-  #  **GET** /api/v1/pets
+  #  **POST** /api/v1/add_funds
   #
   #
   # Inbound operation of funds to checking account

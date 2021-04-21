@@ -27,4 +27,10 @@ class ClabeAccountTest < ActiveSupport::TestCase
     clabe_account = ClabeAccount.get_clabe_account(clabe1)
     assert_not_nil(clabe_account)
   end
+
+  test "generate validation digit" do
+    sub_clabe = "01419001633326941"
+    validation_digit = ClabeAccount.get_clabe_checksum(sub_clabe)
+    puts "For #{sub_clabe} - validation digit is #{validation_digit} - CLABE #{sub_clabe}#{validation_digit}"
+  end
 end
