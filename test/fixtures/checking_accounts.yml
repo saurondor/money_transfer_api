@@ -7,7 +7,7 @@ one:
   user: one
 
 two:
-  clabe: CLABE000000-TWO
+  clabe: "002115016003269411"
   status: 1
   balance: 1500.00
   user: two

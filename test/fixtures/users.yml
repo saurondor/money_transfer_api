@@ -6,6 +6,8 @@
 #
 one:
   email: email1
+  role: admin
 
 two:
-  email: email2
+  email: gtasistro@gmail.com
+  role: holder

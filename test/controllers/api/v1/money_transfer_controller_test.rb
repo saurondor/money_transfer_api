@@ -1,29 +1,54 @@
 require 'test_helper'
+require 'devise/jwt/test_helpers'
 
 class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get api_v1_money_transfer_index_url
-    assert_response :success
+
+  include Devise::Test::IntegrationHelpers
+
+  test "should add funds" do
+    user = users(:one)
+    sign_in user
+    headers = {'Accept' => 'application/json', 'Content-Type' => 'application/json'}
+    # This will add a valid token for `user` in the `Authorization` header
+    auth_headers = Devise::JWT::TestHelpers.auth_headers(headers, user)
+    payload = {
+        "user": {
+            "email": "gtasistro@gmail.com",
+            "amount": "1500.00",
+            "clabe": "002115016003269411"
+        }
+    }
+    post '/api/v1/add_funds', as: :json, params: payload, headers: auth_headers
+    op_result = response.parsed_body
+    puts "::#{op_result}"
+    assert_equal 200, status
+
+
   end
 
-  test "should get show" do
-    get api_v1_money_transfer_show_url
-    assert_response :success
-  end
-
-  test "should get create" do
-    get api_v1_money_transfer_create_url
-    assert_response :success
-  end
-
-  test "should get update" do
-    get api_v1_money_transfer_update_url
-    assert_response :success
-  end
-
-  test "should get destroy" do
-    get api_v1_money_transfer_destroy_url
-    assert_response :success
-  end
+  # test "should get index" do
+  #   get api_v1_money_transfer_index_url
+  #   assert_response :success
+  # end
+  #
+  # test "should get show" do
+  #   get api_v1_money_transfer_show_url
+  #   assert_response :success
+  # end
+  #
+  # test "should get create" do
+  #   get api_v1_money_transfer_create_url
+  #   assert_response :success
+  # end
+  #
+  # test "should get update" do
+  #   get api_v1_money_transfer_update_url
+  #   assert_response :success
+  # end
+  #
+  # test "should get destroy" do
+  #   get api_v1_money_transfer_destroy_url
+  #   assert_response :success
+  # end
 
 end
