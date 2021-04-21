@@ -1,19 +1,10 @@
 class Api::V1::MoneyTransferController < ApplicationController
-  #around_action :log
   before_action :authenticate_user!
 
   before_filter :require_admin, :except => []
 
   def require_admin
 
-  end
-
-  def log
-    puts "IN LOG #{request.headers}"
-
-    request.headers.each do |key, value|
-      puts "\t\t H - #{key}, #{value}"
-    end
   end
 
   def index
