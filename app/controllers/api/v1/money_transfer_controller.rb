@@ -1,5 +1,17 @@
 class Api::V1::MoneyTransferController < ApplicationController
+  #around_action :log
+  before_action :authenticate_user!
+
+  def log
+    puts "IN LOG #{request.headers}"
+
+    request.headers.each do |key, value|
+      puts "\t\t H - #{key}, #{value}"
+    end
+  end
+
   def index
+    puts "USER #{current_user.as_json}"
   end
 
   def show

@@ -18,8 +18,8 @@ Devise.setup do |config|
 
   # JWT Config
   config.jwt do |jwt|
-    #jwt.secret = Rails.application.credentials.jwt_secret
-    jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
+    jwt.secret = Rails.application.credentials.jwt_secret
+    #jwt.secret = ENV['DEVISE_JWT_SECRET_KEY']
     jwt.dispatch_requests = [
         ['POST', %r{^/api/login$}]
     ]
