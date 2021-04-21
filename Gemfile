@@ -36,6 +36,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
+gem 'database_cleaner', group: [:test, :development]
+gem 'simplecov', require: false, group: :test
 
 group :development do
   gem 'listen', '~> 3.2'

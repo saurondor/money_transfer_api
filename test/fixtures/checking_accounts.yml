@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  clabe: MyString
+  clabe: CLABE000000-ONE
   status: 1
-  balance: 1.5
+  balance: 2500.00
   user: one
 
 two:
-  clabe: MyString
+  clabe: CLABE000000-TWO
   status: 1
-  balance: 1.5
+  balance: 1500.00
   user: two

@@ -2,18 +2,18 @@
 
 one:
   checking_account: one
-  operation_type: MyString
-  auth_code: MyString
+  operation_type: withdraw
+  auth_code: '000000'
   amount: 1.5
-  clabe: MyString
-  description: MyString
-  operation_status: MyString
+  clabe: '00211501600326941'
+  description: 'Mcoh withdraw'
+  operation_status: COMPLETE
 
 two:
   checking_account: two
-  operation_type: MyString
-  auth_code: MyString
+  operation_type: withdraw
+  auth_code: '000000'
   amount: 1.5
-  clabe: MyString
-  description: MyString
-  operation_status: MyString
+  clabe: '00211501600326941'
+  description: 'Mcoh withdraw'
+  operation_status: COMPLETE
