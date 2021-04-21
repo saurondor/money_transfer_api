@@ -27,6 +27,7 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
     op_result = response.parsed_body
     puts "::#{op_result}"
     assert_equal 201, status
+    assert_not_nil op_result['auth_code']
   end
 
 
@@ -48,6 +49,7 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
     op_result = response.parsed_body
     puts "::#{op_result} CODE #{op_result['auth_code']}"
     assert_equal 201, status
+    assert_not_nil op_result['auth_code']
   end
 
   # test "should get index" do
