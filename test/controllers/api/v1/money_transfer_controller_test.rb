@@ -8,7 +8,7 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
 
   ##
   # ADMIN user can add funds to HOLDER account
-  # Should return 204 created status
+  # Should return 201 created status
   # Should return operation auth code
   test "should add funds" do
     user = users(:one)
@@ -26,7 +26,7 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
     post '/api/v1/add_funds', as: :json, params: payload, headers: auth_headers
     op_result = response.parsed_body
     puts "::#{op_result}"
-    assert_equal 204, status
+    assert_equal 201, status
   end
 
 
@@ -47,7 +47,7 @@ class Api::V1::MoneyTransferControllerTest < ActionDispatch::IntegrationTest
     post '/api/v1/transfer', as: :json, params: payload, headers: auth_headers
     op_result = response.parsed_body
     puts "::#{op_result}"
-    assert_equal 200, status
+    assert_equal 201, status
   end
 
   # test "should get index" do

@@ -37,11 +37,12 @@ class Api::V1::MoneyTransferController < ApplicationController
       auth_code = current_user.do_withdraw(source_account, amount, destination_account, destination_bank)
       render json: {"auth_code" => auth_code}, :status => :created
     rescue Api::V1::InvalidAmountException => e
+      render json: {"message" => e.message}, :status => :bad_request
     rescue Api::V1::InvalidBalanceException => e
+          render json: {"message" => e.message}, :status => :bad_request
     rescue Api::V1::InvalidClabeException => e
-
+      render json: {"message" => e.message}, :status => :bad_request
     end
-
   end
 
   ##
@@ -71,9 +72,11 @@ class Api::V1::MoneyTransferController < ApplicationController
       auth_code = user.do_deposit(clabe, amount)
       render json: {"auth_code" => auth_code}, :status => :created
     rescue Api::V1::InvalidAmountException => e
+      render json: {"message" => e.message}, :status => :bad_request
     rescue Api::V1::InvalidBalanceException => e
+      render json: {"message" => e.message}, :status => :bad_request
     rescue Api::V1::InvalidClabeException => e
-
+      render json: {"message" => e.message}, :status => :bad_request
     end
   end
 
